@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions_tables" name="Decision" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="decision_simple" name="Simple">
+    <extensionElements>
+      <biodi:bounds x="200" y="200" width="180" height="80" />
+    </extensionElements>
+    <decisionTable>
+      <input id="InputClause_14v0tmv" label="Key" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_04o2lfk" typeRef="string">        <text>key</text>
+</inputExpression>
+      </input>
+      <output id="output_1" label="Value" name="value" typeRef="string" />
+      <rule id="row-116090672-1">
+        <description></description>
+        <inputEntry id="UnaryTests_10lzozs">        <text><![CDATA["A"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0hra2g2">        <text><![CDATA["Letter A"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-116090672-2">
+        <inputEntry id="UnaryTests_1i9e3j0">        <text><![CDATA["B"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_08xp4yr">        <text><![CDATA["Letter B"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-116090672-3">
+        <inputEntry id="UnaryTests_02jfhbc">        <text><![CDATA["C"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0dnyqd9">        <text><![CDATA["Letter C"]]></text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
