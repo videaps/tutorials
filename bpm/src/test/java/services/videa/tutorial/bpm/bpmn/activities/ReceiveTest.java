@@ -16,10 +16,12 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-package services.videa.tutorial.bpm.bpmn;
+package services.videa.tutorial.bpm.bpmn.activities;
 
-import static org.junit.Assert.*;
+import static org.camunda.bpm.engine.test.assertions.ProcessEngineAssertions.assertThat;
 
+import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.runtime.EventSubscription;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.test.Deployment;
 import org.junit.Before;
@@ -27,19 +29,28 @@ import org.junit.Test;
 
 import services.videa.tutorial.bpm.BpmBaseTest;
 
-@Deployment(resources = { "tutorial/bpm/bpmn/task-types.bpmn", })
-public class TaskTypesTest extends BpmBaseTest {
+@Deployment(resources = { "tutorial/bpm/bpmn/activities/receive.bpmn", })
+public class ReceiveTest extends BpmBaseTest {
+
+	private RuntimeService runtimeService = null;
 
 	@Before
 	public void setUp() throws Exception {
+		runtimeService = processEngine.getRuntimeService();
 	}
 
 	@Test
-	public void test() {
-		ProcessInstance processInstance = processEngine.getRuntimeService()
-				.startProcessInstanceByKey("Process_task-types");
-		
-		assertTrue(processInstance.isEnded());
+	public void waitAtTask() {
+		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("Process_receive");
+		assertThat(processInstance).isStarted();
+
+		assertThat(processInstance).isWaitingAt("Task_receive_message");
+
+		EventSubscription subscription = runtimeService.createEventSubscriptionQuery()
+				.processInstanceId(processInstance.getId()).eventType("message").singleResult();
+		runtimeService.messageEventReceived(subscription.getEventName(), subscription.getExecutionId());
+
+		assertThat(processInstance).hasPassed("Task_receive_message");
 	}
 
 }

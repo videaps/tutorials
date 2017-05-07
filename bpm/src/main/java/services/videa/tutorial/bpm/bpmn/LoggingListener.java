@@ -16,18 +16,16 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-package services.videa.tutorial.bpm;
+package services.videa.tutorial.bpm.bpmn;
 
-import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.engine.test.ProcessEngineRule;
-import org.junit.Rule;
+import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.delegate.ExecutionListener;
 
-/**
- * This test class is the base test class for all bpm tutorial test cases.
- */
-public abstract class BpmBaseTest {
+public class LoggingListener implements ExecutionListener {
 
-	@Rule
-	public ProcessEngineRule processEngine = new ProcessEngineRule();
+	public void notify(DelegateExecution execution) throws Exception {
+		System.out.println("Event name: " + execution.getEventName());
+		System.out.println("Activity id: " + execution.getActivityInstanceId());
+	}
 
 }
