@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions_decision_chaining" name="Decision Chaining" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="Decision_prefix" name="Prefix">
+    <extensionElements>
+      <biodi:bounds x="396" y="162" width="180" height="80" />
+      <biodi:edge source="InputData_1k7jgka">
+        <biodi:waypoints x="308" y="205" />
+        <biodi:waypoints x="396" y="206" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_1k7jgka" />
+    </informationRequirement>
+    <decisionTable>
+      <input id="InputClause_0arjytq" label="Key" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_1u9705q" typeRef="string">        <text>key</text>
+</inputExpression>
+      </input>
+      <output id="output_1" label="Value" name="value" typeRef="string" />
+      <rule id="row-280696163-1">
+        <description></description>
+        <inputEntry id="UnaryTests_0qiqwaa">        <text><![CDATA["A"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0jb0ug6">        <text><![CDATA["a"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-280696163-2">
+        <inputEntry id="UnaryTests_0xzvl2m">        <text><![CDATA["B"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_15wkbfd">        <text><![CDATA["b"]]></text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1k7jgka" name="Key">
+    <extensionElements>
+      <biodi:bounds x="183" y="182" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <decision id="Decision_name" name="Name">
+    <extensionElements>
+      <biodi:bounds x="392" y="361" width="180" height="80" />
+      <biodi:edge source="Decision_prefix">
+        <biodi:waypoints x="487" y="242" />
+        <biodi:waypoints x="489" y="361" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredDecision href="#Decision_prefix" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0qylybg">
+      <input id="InputClause_1m3kjfh" label="Value" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_14d3wc7" typeRef="string">        <text>value</text>
+</inputExpression>
+      </input>
+      <output id="OutputClause_1mxarll" label="Name" name="name" typeRef="string" />
+      <rule id="row-280696163-3">
+        <inputEntry id="UnaryTests_0ej6e9v">        <text><![CDATA["a"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1lo0r0n">        <text><![CDATA["Alpha"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-280696163-4">
+        <inputEntry id="UnaryTests_1iqzgl6">        <text><![CDATA["b"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1dg050g">        <text><![CDATA["Beta"]]></text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
