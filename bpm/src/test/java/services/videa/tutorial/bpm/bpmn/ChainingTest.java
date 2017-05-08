@@ -16,40 +16,34 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-package services.videa.tutorial.bpm.dmn;
+package services.videa.tutorial.bpm.bpmn;
 
 import static org.junit.Assert.*;
 
-import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.test.Deployment;
-import org.camunda.bpm.engine.test.ProcessEngineRule;
 import org.camunda.bpm.engine.variable.VariableMap;
 import org.camunda.bpm.engine.variable.Variables;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
-@Deployment(resources = { "tutorial/bpm/dmn/chaining.dmn" })
-public class ChainingTest {
+import services.videa.tutorial.bpm.BpmBaseTest;
 
-	@Rule
-	public ProcessEngineRule processEngine = new ProcessEngineRule();
+@Deployment(resources = { "tutorial/bpm/bpmn/chaining.bpmn", "tutorial/bpm/dmn/chaining.dmn" })
+public class ChainingTest extends BpmBaseTest {
 
 	@Before
 	public void setUp() throws Exception {
 	}
 
 	@Test
-	public void chaining() {
-		VariableMap variables = Variables.createVariables().putValue("key", "B").putValue("postfix", "postfix b")
-				.putValue("keyAddition", "addition_b");
+	public void test() {
+		VariableMap variables = Variables.createVariables();
+		
+		ProcessInstance processInstance = processEngine.getRuntimeService()
+				.startProcessInstanceByKey("Process_chaining", variables);
 
-		DmnDecisionTableResult decisionResult = processEngine.getDecisionService()
-				.evaluateDecisionTableByKey("Decision_name", variables);
-
-		String name = decisionResult.getSingleResult().getEntry("name");
-		System.out.println("name=" + name);
-		assertEquals("Beta", name);
+		assertTrue(processInstance.isEnded());
 	}
 
 }

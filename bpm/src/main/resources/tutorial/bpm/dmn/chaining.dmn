@@ -18,7 +18,6 @@
       </input>
       <output id="output_1" label="Value" name="value" typeRef="string" />
       <rule id="row-280696163-1">
-        <description></description>
         <inputEntry id="UnaryTests_0qiqwaa">        <text><![CDATA["A"]]></text>
 </inputEntry>
         <outputEntry id="LiteralExpression_0jb0ug6">        <text><![CDATA["a"]]></text>
@@ -44,18 +43,44 @@
         <biodi:waypoints x="487" y="242" />
         <biodi:waypoints x="489" y="361" />
       </biodi:edge>
+      <biodi:edge source="InputData_1iyt8as">
+        <biodi:waypoints x="311" y="396" />
+        <biodi:waypoints x="392" y="397" />
+      </biodi:edge>
+      <biodi:edge source="Decision_addition">
+        <biodi:waypoints x="713" y="396" />
+        <biodi:waypoints x="572" y="393" />
+      </biodi:edge>
     </extensionElements>
     <informationRequirement>
       <requiredDecision href="#Decision_prefix" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_1iyt8as" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredDecision href="#Decision_addition" />
     </informationRequirement>
     <decisionTable id="DecisionTable_0qylybg">
       <input id="InputClause_1m3kjfh" label="Value" camunda:inputVariable="">
         <inputExpression id="LiteralExpression_14d3wc7" typeRef="string">        <text>value</text>
 </inputExpression>
       </input>
+      <input id="InputClause_0amgk8n" label="Postfix" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_0g64g9m" typeRef="string">        <text>postfix</text>
+</inputExpression>
+      </input>
+      <input id="InputClause_0pxg6xw" label="Addition" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_145dwva" typeRef="string">        <text>addition</text>
+</inputExpression>
+      </input>
       <output id="OutputClause_1mxarll" label="Name" name="name" typeRef="string" />
       <rule id="row-280696163-3">
         <inputEntry id="UnaryTests_0ej6e9v">        <text><![CDATA["a"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_1fn8byn">        <text><![CDATA["postfix a"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_09qqa99">        <text><![CDATA["addition a"]]></text>
 </inputEntry>
         <outputEntry id="LiteralExpression_1lo0r0n">        <text><![CDATA["Alpha"]]></text>
 </outputEntry>
@@ -63,9 +88,54 @@
       <rule id="row-280696163-4">
         <inputEntry id="UnaryTests_1iqzgl6">        <text><![CDATA["b"]]></text>
 </inputEntry>
+        <inputEntry id="UnaryTests_0x9owop">        <text><![CDATA["postfix b"]]></text>
+</inputEntry>
+        <inputEntry id="UnaryTests_15jxtys">        <text><![CDATA["addition b"]]></text>
+</inputEntry>
         <outputEntry id="LiteralExpression_1dg050g">        <text><![CDATA["Beta"]]></text>
 </outputEntry>
       </rule>
     </decisionTable>
   </decision>
+  <inputData id="InputData_1iyt8as" name="Postfix">
+    <extensionElements>
+      <biodi:bounds x="186" y="372" width="125" height="45" />
+    </extensionElements>
+  </inputData>
+  <decision id="Decision_addition" name="Addition">
+    <extensionElements>
+      <biodi:bounds x="713" y="357" width="180" height="80" />
+      <biodi:edge source="InputData_1jka1e8">
+        <biodi:waypoints x="1004" y="404" />
+        <biodi:waypoints x="893" y="403" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_1jka1e8" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0c92vvl">
+      <input id="InputClause_0acddrj" label="Key Addition" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_0u7joxd" typeRef="string">        <text>keyAddition</text>
+</inputExpression>
+      </input>
+      <output id="OutputClause_0oivu6k" label="Addition" name="addition" typeRef="string" />
+      <rule id="row-879332597-1">
+        <inputEntry id="UnaryTests_0igvxse">        <text><![CDATA["addition_a"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_1btwlpq">        <text><![CDATA["addition a"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-879332597-2">
+        <inputEntry id="UnaryTests_0gltvjy">        <text><![CDATA["addition_b"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0wgvcl3">        <text><![CDATA["addition b"]]></text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <inputData id="InputData_1jka1e8" name="Key Addition">
+    <extensionElements>
+      <biodi:bounds x="1004" y="382" width="125" height="45" />
+    </extensionElements>
+  </inputData>
 </definitions>
