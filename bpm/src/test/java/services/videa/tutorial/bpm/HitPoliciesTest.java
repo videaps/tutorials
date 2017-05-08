@@ -16,41 +16,37 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-package services.videa.tutorial.bpm.bpmn.activities;
+package services.videa.tutorial.bpm;
 
-import static org.camunda.bpm.engine.test.assertions.ProcessEngineAssertions.assertThat;
+import static org.junit.Assert.*;
 
-import org.camunda.bpm.engine.RuntimeService;
-import org.camunda.bpm.engine.runtime.EventSubscription;
-import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.dmn.engine.DmnDecisionTableResult;
 import org.camunda.bpm.engine.test.Deployment;
+import org.camunda.bpm.engine.test.ProcessEngineRule;
+import org.camunda.bpm.engine.variable.VariableMap;
+import org.camunda.bpm.engine.variable.Variables;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
-import services.videa.tutorial.bpm.BpmBaseTest;
+@Deployment(resources = { "tutorial/bpm/dmn/hit-policies.dmn" })
+public class HitPoliciesTest {
 
-@Deployment(resources = { "tutorial/bpm/bpmn/activities/service.bpmn", })
-public class ReceiveTest extends BpmBaseTest {
-
-	private RuntimeService runtimeService = null;
+	@Rule
+	public ProcessEngineRule processEngine = new ProcessEngineRule();
 
 	@Before
 	public void setUp() throws Exception {
-		runtimeService = processEngine.getRuntimeService();
 	}
 
 	@Test
-	public void waitAtTask() {
-		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("Process_receive");
-		assertThat(processInstance).isStarted();
+	public void unique() {
+		VariableMap variables = Variables.createVariables().putValue("key", "B");
 
-		assertThat(processInstance).isWaitingAt("Task_receive_message");
+		DmnDecisionTableResult decisionResult = processEngine.getDecisionService()
+				.evaluateDecisionTableByKey("decision_unique", variables);
 
-		EventSubscription subscription = runtimeService.createEventSubscriptionQuery()
-				.processInstanceId(processInstance.getId()).eventType("message").singleResult();
-		runtimeService.messageEventReceived(subscription.getEventName(), subscription.getExecutionId());
-
-		assertThat(processInstance).hasPassed("Task_receive_message");
+		assertEquals("Letter B", decisionResult.getSingleResult().getEntry("value"));
 	}
 
 }

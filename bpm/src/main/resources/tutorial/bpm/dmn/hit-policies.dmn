@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="definitions_tables" name="Decision" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="decision_unique" name="Unique">
+    <extensionElements>
+      <biodi:bounds x="200" y="200" width="180" height="80" />
+    </extensionElements>
+    <decisionTable>
+      <input id="InputClause_14v0tmv" label="Key" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_04o2lfk" typeRef="string">        <text>key</text>
+</inputExpression>
+      </input>
+      <output id="output_1" label="Value" name="value" typeRef="string" />
+      <rule id="row-116090672-1">
+        <inputEntry id="UnaryTests_10lzozs">        <text><![CDATA["A"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0hra2g2">        <text><![CDATA["Letter A"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-116090672-2">
+        <inputEntry id="UnaryTests_1i9e3j0">        <text><![CDATA["B"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_08xp4yr">        <text><![CDATA["Letter B"]]></text>
+</outputEntry>
+      </rule>
+      <rule id="row-116090672-3">
+        <inputEntry id="UnaryTests_02jfhbc">        <text><![CDATA["C"]]></text>
+</inputEntry>
+        <outputEntry id="LiteralExpression_0dnyqd9">        <text><![CDATA["Letter C"]]></text>
+</outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="decision_any" name="Any">
+    <extensionElements>
+      <biodi:bounds x="401" y="200" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="DecisionTable_0deya0s">
+      <input id="InputClause_1omk4b7" label="Key 1" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_0qmv507" typeRef="string">        <text>key1</text>
+</inputExpression>
+      </input>
+      <input id="InputClause_0ynkavd" label="Key 2" camunda:inputVariable="">
+        <inputExpression id="LiteralExpression_00llc9b" typeRef="string">        <text>key2</text>
+</inputExpression>
+      </input>
+      <output id="OutputClause_1wig99h" label="Value" name="value" typeRef="string" />
+    </decisionTable>
+  </decision>
+</definitions>

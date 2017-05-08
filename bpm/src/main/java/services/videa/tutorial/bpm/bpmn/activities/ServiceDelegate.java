@@ -16,17 +16,17 @@
  WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
  SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
-package services.videa.tutorial.bpm;
+package services.videa.tutorial.bpm.bpmn.activities;
 
-import org.camunda.bpm.engine.test.ProcessEngineRule;
-import org.junit.Rule;
+import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-/**
- * This test class is the base test class for all bpm tutorial test cases.
- */
-public abstract class BpmBaseTest {
+public class ServiceDelegate implements JavaDelegate {
 
-	@Rule
-	public ProcessEngineRule processEngine = new ProcessEngineRule();
+	public void execute(DelegateExecution execution) throws Exception {
+		
+		System.out.println("Hello from ServiceDelegate.execute");
+		
+	}
 
 }

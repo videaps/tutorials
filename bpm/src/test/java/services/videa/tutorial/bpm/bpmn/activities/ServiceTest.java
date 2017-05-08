@@ -29,8 +29,8 @@ import org.junit.Test;
 
 import services.videa.tutorial.bpm.BpmBaseTest;
 
-@Deployment(resources = { "tutorial/bpm/bpmn/activities/service.bpmn", })
-public class ReceiveTest extends BpmBaseTest {
+@Deployment(resources = { "tutorial/bpm/bpmn/activities/receive.bpmn", })
+public class ServiceTest extends BpmBaseTest {
 
 	private RuntimeService runtimeService = null;
 
@@ -43,14 +43,6 @@ public class ReceiveTest extends BpmBaseTest {
 	public void waitAtTask() {
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("Process_receive");
 		assertThat(processInstance).isStarted();
-
-		assertThat(processInstance).isWaitingAt("Task_receive_message");
-
-		EventSubscription subscription = runtimeService.createEventSubscriptionQuery()
-				.processInstanceId(processInstance.getId()).eventType("message").singleResult();
-		runtimeService.messageEventReceived(subscription.getEventName(), subscription.getExecutionId());
-
-		assertThat(processInstance).hasPassed("Task_receive_message");
 	}
 
 }
